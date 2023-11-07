@@ -6,17 +6,21 @@ import IncomeExpense from './components/IncomeExpense'
 import TransactionHistory from './components/TransactionHistory'
 // import AddTransaction from './components/AddTransaction'
 
-const App = () => {
-  const [inputValue, setInputValue] = useState('')
+import { GlobalProvider } from './Context/GlobalState'
 
-  const handleInput = (event) => {
-    console.log(event.target.value)
-    setInputValue(event.target.value)
+const App = () => {
+  const [type, setType] = useState('')
+  const [amount, setAmount] = useState('')
+
+  const handleType = (event) => {
+    setType(event.target.value)
   }
-  console.log('Input value', inputValue)
+  const handleAmount = (event) => {
+    setAmount(event.target.value)
+  }
 
   return (
-    <div>
+    <GlobalProvider>
       <Header />
       <div>
         <Balance />
@@ -27,17 +31,24 @@ const App = () => {
           <div>
             <label>
               Type:
-              <input type="text" value={inputValue} onChange={handleInput} />
+              <input
+                type="text"
+                value={type}
+                placeholder="enter text"
+                onChange={handleType}
+              />
             </label>
           </div>
           <div>
-            <label htmlFor="amount">Amount</label>
-            <input type="number" placeholder="Enter Amount" />
+            <label>
+              Amount:
+              <input type="number" value={amount} onChange={handleAmount} />
+            </label>
           </div>
           <button>SUBMIT</button>
         </form>
       </div>
-    </div>
+    </GlobalProvider>
   )
 }
 
